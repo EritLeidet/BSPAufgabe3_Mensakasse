@@ -5,8 +5,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class Mensa {
-    static final int NUM_OF_CHECKOUTS = 2;
-    static final int NUM_OF_STUDENTS = 10;
+    static final int NUM_OF_CHECKOUTS = 3;
+    static final int NUM_OF_STUDENTS = 100;
 
     public static void main(String[] args) {
         //Generate checkouts and add to collection
@@ -31,7 +31,7 @@ public class Mensa {
 
         //Ask students to leave mensa
         try {
-            TimeUnit.SECONDS.sleep(20);
+            Thread.currentThread().sleep(200);
             System.out.println("##### Mensa is closing!");
         } catch (InterruptedException e) {
             System.out.println("Mensa (main) was interrupted whilst open.");

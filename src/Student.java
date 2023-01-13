@@ -15,11 +15,11 @@ public class Student extends Thread {
 
 
     private void eat() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(rand.nextInt(maxTimeWaiting));
+        Thread.currentThread().sleep(200);
     }
 
     private void gotoMensa() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(rand.nextInt(maxTimeWaiting));
+        Thread.currentThread().sleep(200);
     }
 
     @Override
@@ -27,7 +27,8 @@ public class Student extends Thread {
         //System.out.println(getName() + " started to run.");
         try {
             while (!isInterrupted()) {
-                shortestCheckout(kassen).pay();
+                Checkout kasse = shortestCheckout(kassen);
+                kasse.pay();
                 eat();
                 gotoMensa();
             }
@@ -38,7 +39,8 @@ public class Student extends Thread {
     }
 
     public synchronized static Checkout shortestCheckout(List<Checkout> cls) {
-        return cls.stream().min(Comparator.comparingInt(Checkout::getQueueLength)).orElse(null);
+        Checkout kasse = cls.stream().min(Comparator.comparingInt(Checkout::getQueueLength)).orElse(null);
+        kasse.increaseQueueLength();
+        return kasse;
     }
-
 }

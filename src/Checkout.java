@@ -40,8 +40,9 @@ public class Checkout {
         }
         finally {
             System.out.println(threadName + " has payed.");
-            mutex.unlock();
             decreaseQueueLength();
+            mutex.unlock();
+
         }
     }
 
